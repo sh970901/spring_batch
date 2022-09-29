@@ -76,4 +76,15 @@ public class HelloWorldJobConfig {
             }
         };
     }
+    @Bean
+    @StepScope
+    public Tasklet helloWorldStep3Tasklet(){
+        return new Tasklet(){
+            @Override
+            public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+                System.out.println("헬로월드 테스클릿 3");
+                return RepeatStatus.FINISHED;
+            }
+        };
+    }
 }
