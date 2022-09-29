@@ -1,0 +1,14 @@
+spring:
+  batch:
+    job:
+      names: ${job.name:helloWorldJob}
+    jdbc:
+      initialize-schema: ALWAYS
+#      ?????? ?? ?? ?????? ??? ???? ???? ?? ????
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/app9_batch?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    driver-class-name:
+    username: root
+    password: 7497
+  jpa:
+    show-sql: true
