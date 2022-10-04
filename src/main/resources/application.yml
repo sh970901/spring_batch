@@ -1,7 +1,7 @@
 spring:
   batch:
     job:
-      names: ${job.name:withParamJob}
+      names: ${job.name:NONE}
     jdbc:
       initialize-schema: ALWAYS
 #      ?????? ?? ?? ?????? ??? ???? ???? ?? ????
@@ -12,3 +12,6 @@ spring:
     password: 7497
   jpa:
     show-sql: true
+logging:
+  level:
+    com.ll.exam.app_2022_09_22: debug
