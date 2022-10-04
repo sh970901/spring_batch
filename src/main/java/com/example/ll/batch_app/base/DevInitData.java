@@ -3,6 +3,7 @@ package com.example.ll.batch_app.base;
 import com.example.ll.batch_app.cart.service.CartService;
 import com.example.ll.batch_app.member.entity.Member;
 import com.example.ll.batch_app.member.service.MemberService;
+import com.example.ll.batch_app.order.service.OrderService;
 import com.example.ll.batch_app.product.entity.Product;
 import com.example.ll.batch_app.product.entity.ProductOption;
 import com.example.ll.batch_app.product.service.ProductService;
@@ -18,7 +19,7 @@ import java.util.Arrays;
 @Profile("dev")
 public class DevInitData {
     @Bean
-    public CommandLineRunner initData(MemberService memberService, ProductService productService, CartService cartService){
+    public CommandLineRunner initData(MemberService memberService, ProductService productService, CartService cartService, OrderService orderService){
         return args -> {
             String password = "{noop}1234";
             Member member1 = memberService.join("user1", password, "user1@test.com");
@@ -35,6 +36,8 @@ public class DevInitData {
             cartService.addItem(member1, productOption__RED_44, 1); // productOption__RED_44 총 수량 1
             cartService.addItem(member1, productOption__RED_44, 2); // productOption__RED_44 총 수량 3
             cartService.addItem(member1, productOption__BLUE_44, 1); // productOption__BLUE_44 총 수량 1
+
+            orderService.createFromCart(member1);
         };
     }
 }
