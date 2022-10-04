@@ -1,5 +1,6 @@
 package com.example.ll.batch_app.base.entity;
 
+import com.example.ll.batch_app.product.entity.ProductOption;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,4 +41,5 @@ public class BaseEntity {
     public BaseEntity(long id) {
         this.id = id;
     }
+    
 }
