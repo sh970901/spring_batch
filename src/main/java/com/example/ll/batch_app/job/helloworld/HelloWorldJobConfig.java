@@ -26,13 +26,13 @@ public class HelloWorldJobConfig {
     @Bean
     public Job helloWorldJob(Step helloWorldStep1){
         return jobBuilderFactory.get("helloWorldJob")
-                .incrementer(new RunIdIncrementer()) //강제로 매번 다른 ID를 실행시에 파라미터로 부여
+//                .incrementer(new RunIdIncrementer()) //강제로 매번 다른 ID를 실행시에 파라미터로 부여
                 .start(helloWorldStep1())
                 .next(helloWorldStep2())
                 .build();
     }
     @Bean
-    @JobScope
+    @JobScope //쓸데 없는걸 안만들고 지가 필요할때만 뒤늦게 만듬 객체 메모리 낭비가 없어짐
     public Step helloWorldStep1(){
         return stepBuilderFactory.get("helloWorldStep1")
                 .tasklet(helloWorldStep1Tasklet())
@@ -43,7 +43,7 @@ public class HelloWorldJobConfig {
 
     //작업단위 TaskletStep
     @Bean
-    @StepScope
+    @StepScope  //스텝이라는 영역안에 속한다.
     public Tasklet helloWorldStep1Tasklet(){
         return new Tasklet(){
             @Override
@@ -72,19 +72,14 @@ public class HelloWorldJobConfig {
             @Override
             public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
                 System.out.println("헬로월드 테스클릿 2");
+
+                if ( true ) {
+                    throw new Exception("실패 : 헬로월드 테스클릿 2");
+                }
+
                 return RepeatStatus.FINISHED;
             }
         };
     }
-    @Bean
-    @StepScope
-    public Tasklet helloWorldStep3Tasklet(){
-        return new Tasklet(){
-            @Override
-            public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                System.out.println("헬로월드 테스클릿 3");
-                return RepeatStatus.FINISHED;
-            }
-        };
-    }
+
 }
