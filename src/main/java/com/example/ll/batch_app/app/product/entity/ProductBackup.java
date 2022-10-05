@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import static javax.persistence.FetchType.LAZY;
 
