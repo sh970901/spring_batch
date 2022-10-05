@@ -9,6 +9,8 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
+
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -43,6 +45,17 @@ public class RebateOrderItem extends BaseEntity {
     private int refundPrice; // 환불금액
     private int refundQuantity; // 환불한 개수
     private boolean isPaid; // 결제여부
+    // 상품
+    private String productName;
+
+    // 상품옵션
+    private String productOptionColor;
+    private String productOptionSize;
+    private String productOptionDisplayColor;
+    private String productOptionDisplaySize;
+
+    // 주문품목
+    private LocalDateTime orderItemCreateDate;
 
     public RebateOrderItem(OrderItem orderItem) {
         this.orderItem = orderItem;
@@ -53,34 +66,21 @@ public class RebateOrderItem extends BaseEntity {
         salePrice = orderItem.getSalePrice();
         wholesalePrice = orderItem.getWholesalePrice();
         pgFee = orderItem.getPgFee();
-        payPrice = orderItem.getPrice();
+        payPrice = orderItem.getPayPrice();
         refundPrice = orderItem.getRefundPrice();
         refundQuantity = orderItem.getRefundQuantity();
         isPaid = orderItem.isPaid();
-    }
 
-    public RebateOrderItem(ProductOption productOption, int quantity) {
-        this.productOption = productOption;
-        this.quantity = quantity;
-        this.price = productOption.getPrice();
-        this.salePrice = productOption.getSalePrice();
-        this.wholesalePrice = productOption.getWholesalePrice();
-    }
+        // 상품 추가데이터
+        productName = orderItem.getProductOption().getProduct().getName();
 
-    public int calculatePayPrice() {
-        return salePrice * quantity;
-    }
+        // 상품 옵션 추가데이터
+        productOptionColor = orderItem.getProductOption().getColor();
+        productOptionSize = orderItem.getProductOption().getSize();
+        productOptionDisplayColor = orderItem.getProductOption().getDisplayColor();
+        productOptionDisplaySize = orderItem.getProductOption().getDisplaySize();
+        // 주문품목 추가데이터
+        orderItemCreateDate = orderItem.getCreateDate();
 
-    public void setPaymentDone() {
-        this.pgFee = 0;
-        this.payPrice = calculatePayPrice();
-        this.isPaid = true;
-    }
-
-    public void setRefundDone() {
-        if (refundQuantity == quantity) return;
-
-        this.refundQuantity = quantity;
-        this.refundPrice = payPrice;
     }
 }
