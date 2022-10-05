@@ -22,4 +22,5 @@ public class CashLog extends BaseEntity {//사용자가 충전한 돈을 기록
     @ManyToOne(fetch = LAZY)
     private Member member;
     private long price; // 변동
+    private String eventType;
 }
