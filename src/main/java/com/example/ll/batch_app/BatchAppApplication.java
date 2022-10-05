@@ -5,8 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@SpringBootApplication
+
 //배치 프로그램을 돌림
+@SpringBootApplication
 @EnableBatchProcessing
 @EnableJpaAuditing
 public class BatchAppApplication {
