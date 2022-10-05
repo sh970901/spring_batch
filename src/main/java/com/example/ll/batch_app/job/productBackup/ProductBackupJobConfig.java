@@ -44,6 +44,7 @@ public class ProductBackupJobConfig {
     public Tasklet productBackupStep1Tasklet() {
         return (contribution, chunkContext) -> {
             log.debug("productBackupStep1Tasklet 실행됨!");
+//            System.out.println("productBackupStep1Tasklet 실행됨!");
 
             return RepeatStatus.FINISHED;
         };
